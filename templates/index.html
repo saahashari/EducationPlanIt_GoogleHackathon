@@ -1,166 +1,376 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Job Role Finder</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" 
-    rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" 
-    crossorigin="anonymous">
- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" 
- integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" 
- crossorigin="anonymous"></script>
- <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-<style>
-        body, html {
-            height: 100%;
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            background-color: #ADD8E6;
-            color: black;
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* This centers the children vertically */
-            align-items: center; /* This centers the children horizontally */
-            flex: 1;
-            padding: 20px;
-        }
-        .job-table {
-            margin-top: 20px;
-            box-shadow: 0 5px 15px rgba(0,0,0,.1);
-        }
-        .job-table th, .job-table td {
-            padding: 15px;
-            vertical-align: middle;
-        }
-        .job-table th {
-            background-color: #007bff;
-            color: black;
-        }
-        .form-section {
-            background-color: grey;
-            padding: 20px;
-            border-radius: 8px;
-            margin-top: 20px;
-            margin-left: 10px; /* Reduced margin on the left */
-            margin-right: 10px; /* Reduced margin on the right if needed */
-            box-shadow: 0 5px 15px rgba(0,0,0,.1);
-            width: auto; /* Adjust width to auto to maximize space */
-        }
-        .btn-primary {
-            width: 100%; /* Make the button as wide as the form control */
-        }
-        .form-control {
-            width: 100%; /* Will take full width of the container */
-            padding: 10px;
-            font-size: 16px;
-            /* Set the minimum height if you wish */
-            min-height: 100px; /* Adjust this value to your preference */
-            /* If you want to prevent users from resizing the textarea, you can use: */
-            /* resize: none; */
-        }
-        #author-school-info {
-            background-color: #6699CC; /* A light grey background, or choose your own color */
-            padding: 10px 0; /* Padding for a little space above and below the text */
-            border-bottom: 2px solid #dee2e6; /* A line to separate from the rest of the page */
-            margin-bottom: 15px; /* Optional: to give some space between this section and the content below */
-        }
-        #education-planit-title {
-            font-size: 2em; /* Change the size as needed */
-            font-weight: bold; /* Makes the font bolder */
-            text-align: center; /* Keeps the text aligned to the center */
-            margin-top: 0; /* Adjusts the spacing at the top */
-            color: white; /* Adjust color if needed, white is for contrast with the background */
-        }
-        #education-planit-title {
-            font-size: 2.5em;
-            font-weight: bold;
-            text-align: center;
-            color: #00dffc; /* Bright blue for a popping effect */
-            font-family: 'Pacifico', cursive; /* Pacifico font for a unique style */
-            margin-top: 0;
-        }
-</style>
+  <meta charset="UTF-8" />
+  <title>Education PlanIt — Job Role Finder</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Bootstrap -->
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+    crossorigin="anonymous"
+  />
+
+  <!-- Font: Pacifico for logo; Inter for UI -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome (needed for spinner/search icons) -->
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet"
+    referrerpolicy="no-referrer"
+  />
+
+  <style>
+    :root{
+      --bg1: #0e3a63;
+      --bg2: #1d6fb8;
+      --panel: #ffffff;
+      --primary: #0d6efd;
+      --text: #0b1320;
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+    }
+
+    /* Header/Hero */
+    .hero {
+      color: #fff;
+      text-align: center;
+      padding: 24px 12px 8px;
+    }
+    .brand {
+      font-family: 'Pacifico', cursive;
+      font-size: 2.2rem;
+      color: #00dffc;
+      letter-spacing: 0.5px;
+      margin: 0;
+    }
+    .tagline {
+      margin: 4px 0 0;
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+    .authors {
+      font-size: 0.875rem;
+      opacity: 0.9;
+      margin-top: 10px;
+    }
+
+    /* Card panel */
+    .panel {
+      background: var(--panel);
+      border-radius: 16px;
+      box-shadow: 0 12px 28px rgba(0,0,0,.15);
+      padding: 20px;
+    }
+
+    /* Form */
+    .form-label { font-weight: 600; }
+    textarea.form-control {
+      min-height: 110px;
+      resize: vertical;
+    }
+
+    .chips .btn {
+      margin: 4px;
+    }
+
+    /* Results */
+    .table thead th {
+      position: sticky;
+      top: 0;
+      background: #f8f9fa;
+      z-index: 1;
+    }
+    .table td, .table th {
+      vertical-align: top;
+      white-space: normal;
+      word-break: break-word;
+    }
+    .cell-list {
+      padding-left: 1.1rem;
+      margin: 0;
+    }
+    .cell-list li {
+      margin-bottom: 2px;
+    }
+
+    /* Utilities */
+    .hidden { display: none !important; }
+  </style>
 </head>
 <body>
-    <div class="text-center" id="author-school-info">
-        <p>Platform Designed By: Bharathi Kiran Ravikumar, Karthik Talluri, Saahas Hari, Chia Hou, Sarah Luongo, Eugene Antony, Gary Dwiputra Angdoko</p>
-        <p>From: Carnegie Mellon University</p>
-        <!-- Styled "Education PlanIt" -->
-        <h2 id="education-planit-title">Education PlanIt</h2>
-    </div>
-    <div class="container text-center">
-        <div class="row text-center">
-            <h2>Let's Find Your Future Career. What Interests You? </h2>
+  <!-- Hero / Header -->
+  <header class="hero">
+    <h1 class="brand">Education PlanIt</h1>
+    <p class="tagline">Find careers that match your interests — fast, clear, and student-friendly.</p>
+    <p class="authors">Designed by: Karthik Talluri, Saahas Hari, Eugene Antony • Carnegie Mellon University</p>
+  </header>
+
+  <main class="container my-3">
+    <div class="row justify-content-center g-4">
+      <!-- Form panel -->
+      <div class="col-12 col-lg-10">
+        <div class="panel">
+          <form id="interest-form" class="row g-3" novalidate>
+            <div class="col-12">
+              <label for="interests" class="form-label">What are you interested in?</label>
+              <textarea
+                id="interests"
+                name="interests"
+                class="form-control"
+                placeholder='Start with: "I like building apps and math"'
+                required
+                aria-describedby="helper"
+              ></textarea>
+              <div id="helper" class="form-text">Tip: mention 2–4 interests (e.g., coding, games, art, math, science).</div>
+            </div>
+
+            <!-- Helpful chips -->
+            <div class="col-12 chips">
+              <span class="me-2">Quick picks:</span>
+              <button type="button" class="btn btn-sm btn-outline-primary chip">coding</button>
+              <button type="button" class="btn btn-sm btn-outline-primary chip">math & statistics</button>
+              <button type="button" class="btn btn-sm btn-outline-primary chip">design & UX</button>
+              <button type="button" class="btn btn-sm btn-outline-primary chip">robotics</button>
+              <button type="button" class="btn btn-sm btn-outline-primary chip">writing & communication</button>
+            </div>
+
+            <div class="col-12 d-grid d-sm-flex gap-2">
+              <button id="submitBtn" type="submit" class="btn btn-primary">
+                <i class="fa-solid fa-magnifying-glass me-1"></i> Find Matching Careers
+              </button>
+              <button type="button" id="clearBtn" class="btn btn-outline-secondary">Clear</button>
+              <div id="loading" class="align-self-center text-primary hidden">
+                <i class="fa-solid fa-spinner fa-spin me-1"></i> Loading suggestions…
+              </div>
+            </div>
+          </form>
         </div>
+      </div>
 
-        <div class="form-section">
-            <form id="interest-form" class="row g-3 justify-content-center">
-                <div class="col-12">
-                    <textarea class="form-control" name="interests" placeholder="Start here with I like..." required rows="4"></textarea>
-                </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </div>
-            </form>
+      <!-- Results panel -->
+      <div class="col-12 col-lg-10">
+        <div class="panel">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h5 class="m-0">Results</h5>
+            <small class="text-muted">Tip: click a chip above to quickly try different interests.</small>
+          </div>
+
+          <div id="errorBox" class="alert alert-danger d-none" role="alert"></div>
+
+          <div class="table-responsive">
+            <table id="resultsTable" class="table table-striped table-hover align-middle">
+              <thead>
+                <tr>
+                  <th style="min-width: 160px;">Job Role</th>
+                  <th style="min-width: 260px;">Job Description</th>
+                  <th style="min-width: 220px;">Courses Recommended</th>
+                  <th style="min-width: 220px;">Colleges (Rank 1–3)</th>
+                  <th style="min-width: 140px;">Salary Range</th>
+                  <th style="min-width: 220px;">Online Resources</th>
+                </tr>
+              </thead>
+              <tbody id="resultsBody">
+                <tr class="text-muted">
+                  <td colspan="6">No results yet. Submit your interests to get started.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
         </div>
+      </div>
     </div>
-    <!-- The response will be displayed here -->
-    <div id="response">
+  </main>
 
-    <!-- Include jQuery for AJAX request -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-    $(document).ready(function(){
-        $('#interest-form').on('submit', function(e){
-            e.preventDefault();
-            var loadingText = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-            var originalText = '<i class="fas fa-search"></i> Find Job Roles';
-            var button = $(this).find('button');
-            button.html(loadingText);
-            $.ajax({
-                url: '/findjobroles',
-                type: 'post',
-                data: $(this).serialize(),
-                success: function(response){
-                    // Assuming `response` is a JSON object with job data
+  <!-- JS: jQuery + Bootstrap bundle -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+    crossorigin="anonymous"
+  ></script>
 
-                    var table = $('<table>').addClass('job-table');
-                    var headerRow = $('<tr>');
-                    headerRow.append($('<th>').text('Job Role'));
-                    headerRow.append($('<th>').text('Job Description'));
-                    headerRow.append($('<th>').text('Courses Recommended'));
-                    headerRow.append($('<th>').text('Colleges (Rank 1-3)'));
-                    headerRow.append($('<th>').text('Salary Range'));
-                    headerRow.append($('<th>').text('Online Resources To Use'))
-                    table.append(headerRow);
+  <script>
+    // --- Helpers ---
+    function toArray(x) {
+      if (Array.isArray(x)) return x;
+      if (x == null) return [];
+      // Split semi-structured strings like "A, B, C"
+      if (typeof x === 'string' && x.includes(',')) {
+        return x.split(',').map(s => s.trim()).filter(Boolean);
+      }
+      return x ? [String(x)] : [];
+    }
 
-                    for (var i = 0; i < response.jobroles.length; i++) {
-                        var row = $('<tr>');
-                        row.append($('<td>').text(response.jobroles[i]));
-                        row.append($('<td>').text(response.JD[i]));
-                        row.append($('<td>').text(response.courses[i]));
-                        row.append($('<td>').text(response.colleges[i]));
-                        row.append($('<td>').addClass('salary-column').text(response.salary[i]));
-                        row.append($('<td>').text(response.onlineRes[i]));
-                        table.append(row);
-                    }
-                    button.html(originalText);
-                    $('#response').empty().append(table);
-                },
-                error: function(error) {
-                    // Handle errors here
-                    button.html(originalText);
-                    $('#response').html('Error: ' + error.responseText);
-                }
-            });
+    function renderListCell(val) {
+      const arr = toArray(val);
+      if (!arr.length) return document.createTextNode('—');
+      const ul = document.createElement('ul');
+      ul.className = 'cell-list';
+      arr.forEach(v => {
+        const li = document.createElement('li');
+        li.textContent = v;
+        ul.appendChild(li);
+      });
+      return ul;
+    }
+
+    // Normalize API response into rows: [{jobrole, jd, courses, colleges, salary, onlineRes}, ...]
+    function normalizeResponse(resp) {
+      // Newer shape: { rows: [...] }
+      if (resp && Array.isArray(resp.rows)) {
+        return resp.rows.map(r => ({
+          jobrole: r.jobrole ?? r.role ?? '',
+          jd: r.jd ?? r.description ?? '',
+          courses: r.courses ?? [],
+          colleges: r.colleges ?? [],
+          salary: r.salary ?? r.salary_range ?? '',
+          onlineRes: r.onlineRes ?? r.online_resources ?? []
+        }));
+      }
+      // Legacy shape: arrays per column
+      if (resp && Array.isArray(resp.jobroles)) {
+        const n = resp.jobroles.length;
+        const rows = [];
+        for (let i = 0; i < n; i++) {
+          rows.push({
+            jobrole: resp.jobroles[i] ?? '',
+            jd: (resp.JD && resp.JD[i]) ?? '',
+            courses: (resp.courses && resp.courses[i]) ?? [],
+            colleges: (resp.colleges && resp.colleges[i]) ?? [],
+            salary: (resp.salary && resp.salary[i]) ?? '',
+            onlineRes: (resp.onlineRes && resp.onlineRes[i]) ?? []
+          });
+        }
+        return rows;
+      }
+      return [];
+    }
+
+    function renderRows(rows) {
+      const tbody = document.getElementById('resultsBody');
+      tbody.innerHTML = '';
+      if (!rows.length) {
+        const tr = document.createElement('tr');
+        tr.className = 'text-muted';
+        const td = document.createElement('td');
+        td.colSpan = 6;
+        td.textContent = 'No results returned. Try different interests.';
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+        return;
+      }
+
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+
+        const tdRole = document.createElement('td');
+        tdRole.textContent = r.jobrole || '—';
+
+        const tdJD = document.createElement('td');
+        tdJD.textContent = r.jd || '—';
+
+        const tdCourses = document.createElement('td');
+        tdCourses.appendChild(renderListCell(r.courses));
+
+        const tdColleges = document.createElement('td');
+        tdColleges.appendChild(renderListCell(r.colleges));
+
+        const tdSalary = document.createElement('td');
+        tdSalary.textContent = r.salary || '—';
+
+        const tdRes = document.createElement('td');
+        tdRes.appendChild(renderListCell(r.onlineRes));
+
+        tr.append(tdRole, tdJD, tdCourses, tdColleges, tdSalary, tdRes);
+        tbody.appendChild(tr);
+      });
+    }
+
+    function setLoading(isLoading) {
+      const btn = document.getElementById('submitBtn');
+      const spinner = document.getElementById('loading');
+      btn.disabled = isLoading;
+      spinner.classList.toggle('hidden', !isLoading);
+      if (isLoading) {
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-1"></i> Working…';
+      } else {
+        btn.innerHTML = '<i class="fa-solid fa-magnifying-glass me-1"></i> Find Matching Careers';
+      }
+    }
+
+    function showError(msg) {
+      const box = document.getElementById('errorBox');
+      box.textContent = msg || 'Something went wrong. Please try again.';
+      box.classList.remove('d-none');
+      setTimeout(() => box.classList.add('d-none'), 6000);
+    }
+
+    // --- Events ---
+    $(function () {
+      // Chips fill helper
+      $('.chip').on('click', function () {
+        const t = $('#interests');
+        const val = t.val().trim();
+        const add = $(this).text().trim();
+        t.val(val ? (val + (val.endsWith('.') ? ' ' : ', ') + add) : add);
+        t.focus();
+      });
+
+      // Clear
+      $('#clearBtn').on('click', function () {
+        $('#interests').val('');
+        $('#resultsBody').html('<tr class="text-muted"><td colspan="6">Cleared. Enter interests to search.</td></tr>');
+        $('#errorBox').addClass('d-none');
+      });
+
+      // Submit
+      $('#interest-form').on('submit', function (e) {
+        e.preventDefault();
+        $('#errorBox').addClass('d-none');
+
+        const form = $(this);
+        const text = ($('#interests').val() || '').trim();
+        if (text.length < 3) {
+          showError('Please enter a bit more detail (e.g., “coding and math”).');
+          return;
+        }
+
+        setLoading(true);
+        $.ajax({
+          url: '/findjobroles',
+          type: 'POST',
+          data: form.serialize(),
+          success: function (resp) {
+            try {
+              const rows = normalizeResponse(resp);
+              renderRows(rows);
+            } catch (err) {
+              console.error(err);
+              showError('Unexpected response format from server.');
+            } finally {
+              setLoading(false);
+            }
+          },
+          error: function (xhr) {
+            setLoading(false);
+            const msg = xhr?.responseText || 'Request failed. Please try again.';
+            showError(msg);
+          },
+          timeout: 30000
         });
+      });
     });
-    </script>
-    </div>
-    </div>
+  </script>
 </body>
 </html>
-
